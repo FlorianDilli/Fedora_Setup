@@ -2,17 +2,12 @@
 
 # Configuration script for Rofi and autostart color changes
 
-------------------------------------------------------------------
-# --- Variables ---
-------------------------------------------------------------------
+# ------------------------------------------------------------------
+# --- Step 1: Create or Update Rofi Configuration File ---
+# ------------------------------------------------------------------
 ROFI_THEME_DIR="$HOME/.local/share/rofi/themes"
 ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
-AUTOSTART_CONF="$HOME/.config/hypr/conf/autostart.conf"
-UPDATE_SCRIPT="$HOME/Fedora_Setup/update_rofi_color.sh"
 
-------------------------------------------------------------------
-# --- Step 1: Create or Update Rofi Configuration File ---
-------------------------------------------------------------------
 # Ensure the theme directory exists
 mkdir -p "$ROFI_THEME_DIR"
 
@@ -25,17 +20,20 @@ configuration {
 }
 EOL
 
-------------------------------------------------------------------
+# ------------------------------------------------------------------
 # --- Step 2: Add Color Change Command to Autostart Configuration ---
-------------------------------------------------------------------
+# ------------------------------------------------------------------
+AUTOSTART_CONF="$HOME/.config/hypr/conf/autostart.conf"
+UPDATE_SCRIPT="$HOME/Fedora_Setup/update_rofi_color.sh"
+
 # Ensure the autostart configuration directory exists
 mkdir -p "$(dirname "$AUTOSTART_CONF")"
 
-# Append the color change command to the autostart configuration
+# Append dynamic color update script to the autostart configuration
 if ! grep -q "$UPDATE_SCRIPT" "$AUTOSTART_CONF"; then
     echo "exec-once = while true; do \
-  [ -f \"$HOME/.cache/wal/sequences\" ] && \
-  inotifywait -e modify \"$HOME/.cache/wal/sequences\" && \
+  [ -f \"$HOME/.cache/wal/colors\" ] && \
+  inotifywait -e modify \"$HOME/.cache/wal/colors\" && \
   $UPDATE_SCRIPT; \
 done" >> "$AUTOSTART_CONF"
 fi
