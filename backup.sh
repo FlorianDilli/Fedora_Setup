@@ -1,66 +1,66 @@
 #!/usr/bin/bash
 
-# Define the directories
-set filen_dir /home/florian/Filen
-set filen_backup_dir /home/florian/Dokumente/Filen_Backup
-set obsidian_dir /home/florian/Dokumente/Obsidian
-set obsidian_backup_dir /home/florian/Dokumente/Obsidian_Backup
-set scripts_dir /usr/local/bin
-set scripts_backup_dir /home/florian/Filen/Ubuntu/Skripte
+# --- Define Directories ---
+FILEN_DIR="/home/florian/Filen"
+FILEN_BACKUP_DIR="/home/florian/Dokumente/Filen_Backup"
+OBSIDIAN_DIR="/home/florian/Dokumente/Obsidian"
+OBSIDIAN_BACKUP_DIR="/home/florian/Dokumente/Obsidian_Backup"
+SCRIPTS_DIR="/usr/local/bin"
+SCRIPTS_BACKUP_DIR="/home/florian/Filen/Ubuntu/Skripte"
 
-# Define colors
-set purple '\033[35m'
-set reset '\033[0m'
+# --- Define Colors ---
+PURPLE='\033[35m'
+RESET='\033[0m'
 
-# Function to check if directory exists
-function check_dir
-    if not test -d $argv[1]
-        echo -e "$purple""Error: Directory $argv[1] does not exist!""$reset"
+# --- Function: Check if Directory Exists ---
+check_dir() {
+    if [ ! -d "$1" ]; then
+        echo -e "${PURPLE}Error: Directory $1 does not exist!${RESET}"
         return 1
-    end
+    fi
     return 0
-end
+}
 
-# Function to perform backup
-function do_backup
-    set source $argv[1]
-    set dest $argv[2]
-    set name $argv[3]
+# --- Function: Perform Backup ---
+do_backup() {
+    local source="$1"
+    local dest="$2"
+    local name="$3"
     
-    echo -e "\n$purple╭─────────────────────────────────────────╮$reset"
-    echo -e "$purple│        Starting backup of $name        │$reset"
-    echo -e "$purple╰─────────────────────────────────────────╯$reset\n"
+    echo -e "\n${PURPLE}╭─────────────────────────────────────────╮${RESET}"
+    echo -e "${PURPLE}│        Starting backup of $name        │${RESET}"
+    echo -e "${PURPLE}╰─────────────────────────────────────────╯${RESET}\n"
 
     # Perform rsync with file list output
-    rsync -ahv --delete $source/ $dest/ | \
-    while read -l line
+    rsync -ahv --delete "$source/" "$dest/" | while read -r line; do
         # Skip lines that contain progress information
-        if not string match -q "*%" "$line"
-            echo -e "$purple$line$reset"
-        end
-    end
+        if [[ ! "$line" =~ "% " ]]; then
+            echo -e "${PURPLE}$line${RESET}"
+        fi
+    done
 
-    echo -e "\n$purple✓ Finished backing up $name successfully!$reset\n"
-end
+    echo -e "\n${PURPLE}✓ Finished backing up $name successfully!${RESET}\n"
+}
 
-# Check if all directories exist (except scripts_backup_dir which will be created if needed)
-for dir in $filen_dir $filen_backup_dir $obsidian_dir $obsidian_backup_dir $scripts_dir
-    check_dir $dir; or exit 1
-end
+# --- Check Directories ---
+for dir in "$FILEN_DIR" "$FILEN_BACKUP_DIR" "$OBSIDIAN_DIR" "$OBSIDIAN_BACKUP_DIR" "$SCRIPTS_DIR"; do
+    check_dir "$dir" || exit 1
+done
 
-# Check if Filen directory is not empty
-if test (count (ls -A $filen_dir)) -gt 0
+# --- Backup Filen and Scripts ---
+if [ "$(ls -A "$FILEN_DIR")" ]; then
     # Backup Filen
-    do_backup $filen_dir $filen_backup_dir "Filen"
+    do_backup "$FILEN_DIR" "$FILEN_BACKUP_DIR" "Filen"
     
     # Create scripts backup directory if it doesn't exist
-    mkdir -p $scripts_backup_dir
+    mkdir -p "$SCRIPTS_BACKUP_DIR"
 
     # Backup scripts
-    do_backup $scripts_dir $scripts_backup_dir "Scripts"
+    do_backup "$SCRIPTS_DIR" "$SCRIPTS_BACKUP_DIR" "Scripts"
 else
-    echo -e "\n$purple""Filen directory is empty! Skipping Filen and Scripts backup...""$reset\n"
-end
+    echo -e "\n${PURPLE}Filen directory is empty! Skipping Filen and Scripts backup...${RESET}\n"
+fi
 
-# Backup Obsidian
-do_backup $obsidian_dir $obsidian_backup_dir "Obsidian"
+# --- Backup Obsidian ---
+do_backup "$OBSIDIAN_DIR" "$OBSIDIAN_BACKUP_DIR" "Obsidian"
+
