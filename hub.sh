@@ -75,4 +75,4 @@ fi
 
 # Completion message
 echo
-gum style --foreground 82 --bold "'$CHOICE' completed successfully."
+gum style --foreground 212 --bold "'$CHOICE' completed successfully."
