@@ -18,6 +18,7 @@ OPTIONS=(
     "Post-Update Rofi Customization"
     "Update Rofi Colors"
     "Update System"
+    "Sync to GitHub"
     "Exit"
 )
 
@@ -29,6 +30,7 @@ COMMANDS=(
     "./ml4w_post_update.sh"
     "./update_rofi_color.sh"
     "./update_system.sh"
+    "./sync_to_github.sh"
     "exit 0"
 )
 
