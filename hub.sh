@@ -34,6 +34,7 @@ HEADER=$(gum style --foreground 212 --background 0 --bold --margin "1" --padding
 
 current_menu="main"
 while true; do
+    clear
     echo "$HEADER"
     choice=$(echo ${MENUS[$current_menu]} | tr '|' '\n' | gum choose --header="Select an option:")
     
@@ -46,9 +47,21 @@ while true; do
     fi
 
     if [[ ${COMMANDS[$choice]} ]]; then
-        gum confirm "Run '$choice'?" && {
-            bash -c "${COMMANDS[$choice]}" || echo "Error executing '$choice'"
-            gum style --foreground 212 --bold "'$choice' completed."
-        }
+        if gum confirm "Run '$choice'?"; then
+            clear
+            echo "$HEADER"
+            gum style --foreground 212 --bold "Running '$choice'..."
+            bash "${COMMANDS[$choice]}"
+            EXIT_STATUS=$?
+            
+            if [ $EXIT_STATUS -ne 0 ]; then
+                gum style --foreground 196 --bold "Error executing '$choice'. Please check the script."
+                read -p "Press Enter to continue..."
+            else
+                echo
+                gum style --foreground 212 --bold "'$choice' completed successfully."
+                read -p "Press Enter to continue..."
+            fi
+        fi
     fi
 done
