@@ -33,7 +33,7 @@ COMMANDS=(
 )
 
 # Header
-HEADER=$(gum style --foreground "$color5" --background "$color0" --bold --margin "1" --padding "1 1" --align left "
+HEADER=$(gum style --foreground "$color5" --bold --margin "1" --padding "1 1" --align left "
  _____                _____     _           
 |  |  |_ _ ___ ___   |   __|___| |_ _ _ ___ 
 |     | | | . |  _|  |__   | -_|  _| | | . |
@@ -51,7 +51,7 @@ while true; do
     # Display the menu and highlight the selected item with Pywal colors, including the arrow
     choice=$(echo ${MENUS[$current_menu]} | tr '|' '\n' | gum choose --header="$SELECT_TEXT" \
         --selected.foreground="$color0" --selected.background="$color5"\
-        --cursor.foreground="$color5" --cursor.background="$color0")
+        --cursor.foreground="$color5")
 
     [ "$choice" = "Exit" ] && exit 0
     [ "$choice" = "Back" ] && { current_menu="main"; continue; }
