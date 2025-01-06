@@ -66,7 +66,7 @@ gum confirm "Do you want to run '$CHOICE'?" || exit
 
 # Run the selected script interactively
 if [[ "$COMMAND" != "exit 0" ]]; then
-    echo "Running '$CHOICE'..."
+    echo gum style --foreground 212 --bold  "Running '$CHOICE'..."
     bash -c "$COMMAND"
     EXIT_STATUS=$?
     if [ $EXIT_STATUS -ne 0 ]; then
