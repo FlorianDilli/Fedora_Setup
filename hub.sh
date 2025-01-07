@@ -18,17 +18,18 @@ fi
 # Menu structure with nested options
 declare -A MENUS
 MENUS=(
-    ["main"]="System Configuration|Backup Files and Scripts|Update System|Sync to GitHub|Exit"
-    ["System Configuration"]="Install Applications|Post-Install Configuration|Update Rofi Colors|Back"
+    ["main"]="System update|Backup|Sync Fedora_Setup to GitHub|Other Scripts|Exit"
+    ["Other Scripts"]="Post-Update Configuration|Post-Install Configuration|Install my Apps|Update Rofi Colors|Back"
 )
 
 declare -A COMMANDS
 COMMANDS=(
-    ["Backup Files and Scripts"]="./backup.sh"
-    ["Update System"]="./update_system.sh"
-    ["Sync to GitHub"]="./sync_to_github.sh"
-    ["Install Applications"]="./install_apps.sh"
+    ["Backup"]="./backup.sh"
+    ["System update"]="./update_system.sh"
+    ["Sync Fedora_Setup to GitHub"]="./sync_to_github.sh"
+    ["Install my Apps"]="./install_apps.sh"
     ["Post-Install Configuration"]="./ml4w_post_install.sh"
+    ["Post-Update Configuration"]="./ml4w_post_update.sh"
     ["Update Rofi Colors"]="./update_rofi_color.sh"
 )
 
