@@ -20,9 +20,4 @@ sudo dnf clean all
 echo -e "$PURPLE Updating Flatpak packages... $NC"
 flatpak update -y
 
-# Check for broken packages (Fedora uses rpm for package validation)
-echo -e "$PURPLE Checking for broken packages... $NC"
-sudo rpm --rebuilddb
-sudo dnf check
-
 echo -e "$PURPLE System update completed! $NC"

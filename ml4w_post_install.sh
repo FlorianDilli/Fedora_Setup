@@ -20,25 +20,12 @@ fi
 # ------------------------------------------------------------------
 # --- Step 2: Install and Configure Rofi Themes ---
 # ------------------------------------------------------------------
-ROFI_THEME_DIR="$HOME/.local/share/rofi/themes"
+ROFI_THEME_DIR="$HOME/florian/Fedora_Setup/Config_Files/Rofi"
 ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
-THEME_REPO="https://github.com/addy-dclxvi/rofi-themes"
-
-# Clone Rofi themes from GitHub
-if [ ! -d "rofi-themes-collection" ]; then
-    git clone "$THEME_REPO" rofi-themes-collection
-fi
-
-# Ensure the theme directory exists
-mkdir -p "$ROFI_THEME_DIR"
-
-# Copy selected themes to the local theme directory
-cp rofi-themes-collection/themes/rounded-nord-dark.rasi "$ROFI_THEME_DIR"
-cp rofi-themes-collection/themes/rounded-common.rasi "$ROFI_THEME_DIR"
 
 # Create or overwrite the Rofi configuration file
 cat > "$ROFI_CONFIG" <<EOL
-@theme "$ROFI_THEME_DIR/rounded-nord-dark.rasi"
+@theme "$ROFI_THEME_DIR/my_rofi_theme.rasi"
 configuration {
     show-icons: true;
     display-drun: "";
