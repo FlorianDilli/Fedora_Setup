@@ -5,12 +5,12 @@
     bg0:    #2E3440;
     bg1:    #3B4252;
     bg2:    #4C566A99;
-    bg3:    #6C879B;
+    bg3:    #A05C59;
     fg0:    #ECEFF4;
     fg1:    #FFFFFF;
     fg2:    #E5E9F0;
-    fg3:    #6C879B;
-    accent: #f0e1cf;
+    fg3:    #A05C59;
+    accent: #e7be9c; 
 }
 
 * {
