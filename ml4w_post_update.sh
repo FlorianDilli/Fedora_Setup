@@ -1,40 +1,18 @@
 #!/bin/bash
 
-# Configuration script for Rofi and autostart color changes
+# Configuration script for Rofi
 
 # ------------------------------------------------------------------
-# --- Step 1: Create or Update Rofi Configuration File ---
+# --- Step 2: Set my Rofi Theme in the Rofi Config ---
 # ------------------------------------------------------------------
-ROFI_THEME_DIR="$HOME/.local/share/rofi/themes"
+ROFI_THEME_DIR="$HOME/florian/Fedora_Setup/Config_Files/Rofi"
 ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
-
-# Ensure the theme directory exists
-mkdir -p "$ROFI_THEME_DIR"
 
 # Create or overwrite the Rofi configuration file
 cat > "$ROFI_CONFIG" <<EOL
-@theme "$ROFI_THEME_DIR/rounded-nord-dark.rasi"
+@theme "$ROFI_THEME_DIR/my_rofi_theme.rasi"
 configuration {
     show-icons: true;
     display-drun: "";
 }
 EOL
-
-# ------------------------------------------------------------------
-# --- Step 2: Add Color Change Command to Autostart Configuration ---
-# ------------------------------------------------------------------
-AUTOSTART_CONF="$HOME/.config/hypr/conf/autostart.conf"
-UPDATE_SCRIPT="$HOME/Fedora_Setup/update_rofi_color.sh"
-
-# Ensure the autostart configuration directory exists
-mkdir -p "$(dirname "$AUTOSTART_CONF")"
-
-# Append dynamic color update script to the autostart configuration
-if ! grep -q "$UPDATE_SCRIPT" "$AUTOSTART_CONF"; then
-    echo "exec-once = while true; do \
-  [ -f \"$HOME/.cache/wal/colors\" ] && \
-  inotifywait -e modify \"$HOME/.cache/wal/colors\" && \
-  $UPDATE_SCRIPT; \
-done" >> "$AUTOSTART_CONF"
-fi
-

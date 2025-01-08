@@ -18,7 +18,7 @@ if ! grep -q "^${SCALING_LINE}$" "$CUSTOM_CONF"; then
 fi
 
 # ------------------------------------------------------------------
-# --- Step 2: Install and Configure Rofi Themes ---
+# --- Step 2: Set my Rofi Theme ---
 # ------------------------------------------------------------------
 ROFI_THEME_DIR="$HOME/florian/Fedora_Setup/Config_Files/Rofi"
 ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
@@ -31,25 +31,3 @@ configuration {
     display-drun: "";
 }
 EOL
-
-# ------------------------------------------------------------------
-# --- Step 3: Dynamic Color Updates for Rofi ---
-# ------------------------------------------------------------------
-AUTOSTART_CONF="$HOME/.config/hypr/conf/autostart.conf"
-UPDATE_SCRIPT="$HOME/Fedora_Setup/update_rofi_color.sh"
-
-# Install inotify-tools for monitoring file changes
-sudo dnf install -y inotify-tools
-
-# Ensure the autostart configuration directory exists
-mkdir -p "$(dirname "$AUTOSTART_CONF")"
-
-# Append dynamic color update script to the autostart configuration
-if ! grep -q "$UPDATE_SCRIPT" "$AUTOSTART_CONF"; then
-    echo "exec-once = while true; do \
-  [ -f \"$HOME/.cache/wal/colors\" ] && \
-  inotifywait -e modify \"$HOME/.cache/wal/colors\" && \
-  $UPDATE_SCRIPT; \
-done" >> "$AUTOSTART_CONF"
-fi
-
