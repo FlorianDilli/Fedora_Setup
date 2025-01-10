@@ -19,7 +19,7 @@ fi
 declare -A MENUS
 MENUS=(
     ["main"]="System update|Backup|Sync Fedora_Setup to GitHub|Other Scripts|Exit"
-    ["Other Scripts"]="Post-Update Configuration|Post-Install Configuration|Install my Apps|Update Rofi Colors|Back"
+    ["Other Scripts"]="Post-Update Configuration|Post-Install Configuration|Install my Apps|Back"
 )
 
 declare -A COMMANDS
@@ -30,7 +30,6 @@ COMMANDS=(
     ["Install my Apps"]="./install_apps.sh"
     ["Post-Install Configuration"]="./ml4w_post_install.sh"
     ["Post-Update Configuration"]="./ml4w_post_update.sh"
-    ["Update Rofi Colors"]="./update_rofi_color.sh"
 )
 
 # Header
