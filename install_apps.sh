@@ -66,4 +66,4 @@ for choice in "${selected[@]}"; do
     done
 done
 
-echo "Installation complete."
+echo "Installation complete." 
