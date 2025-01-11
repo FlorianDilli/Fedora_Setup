@@ -57,6 +57,10 @@ for choice in "${selected[@]}"; do
             else
                 echo "Installing $name..."
                 flatpak install flathub "$id" -y
+                if [ "$name" = "Obsidian" ]; then
+                    echo "Applying necessary permissions for Obsidian..."
+                    flatpak override --user --socket=wayland md.obsidian.Obsidian
+                fi
             fi
         fi
     done
