@@ -37,18 +37,23 @@ readarray -t selected < <(
     done | gum choose --no-limit
 )
 
+# Get the user's Downloads directory
+downloads_dir="/home/florian/Downloads"  # Directly specify the Downloads directory
+
 # Install selected applications
-for choice in "${selected[@]}"; do  # Iterate over the array elements
+for choice in "${selected[@]}"; do
     for app in "${apps[@]}"; do
         name="${app#*:}"
         id="${app%:*}"
         if [ "$choice" = "$name" ]; then
             if [ "$name" = "Filen Desktop" ]; then
                 echo "Installing Filen Desktop..."
-                # Download Filen
-                wget -O filen.rpm "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
+                # Download Filen to the Downloads directory
+                wget -P "$downloads_dir" "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
+                # Change to the Downloads directory
+                cd "$downloads_dir" || { echo "Could not change to Downloads directory."; exit 1; }
                 # Install Filen (using rpm)
-                sudo rpm -i filen.rpm
+                sudo rpm -i Filen_linux_x86_64.rpm
             else
                 echo "Installing $name..."
                 flatpak install flathub "$id" -y
