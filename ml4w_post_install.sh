@@ -35,3 +35,10 @@ configuration {
 }
 EOL
 
+
+# ------------------------------------------------------------------
+# --- Step 3: Insert my own Waybar Theme ---
+# ------------------------------------------------------------------
+
+# create symbolic link from my folder to the waybar themes folder
+ln -s ~/Fedora_Setup/Config_Files/Waybar/my_starter ~/.config/waybar/themes/my_starter
