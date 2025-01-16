@@ -16,108 +16,114 @@
 
 @import '/home/florian/.cache/wal/colors-waybar.css';
 
-@define-color backgroundlight @color5;
-@define-color backgrounddark @color11;
-@define-color workspacesbackground1 @color5;
-@define-color workspacesbackground2 @color11;
-@define-color bordercolor @color11;
-@define-color textcolor1 #FFFFFF;
-@define-color textcolor2 #FFFFFF;
-@define-color textcolor3 #FFFFFF;
-@define-color iconcolor #FFFFFF;
+/* -----------------------------------------------------
+ * Color Variables 
+ * ----------------------------------------------------- */
+
+@define-color bg-light @color5;
+@define-color bg-dark @color11;
+@define-color text-light #FFFFFF;
+@define-color icon-light #FFFFFF;
 
 /* -----------------------------------------------------
- * General 
+ * Base Styles 
  * ----------------------------------------------------- */
 
 * {
     font-family: "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome,  Roboto, Helvetica, Arial, sans-serif;
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 window#waybar {
-    background-color: rgba(0,0,0,0.0);
-    border-bottom: 0px solid #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background-color: rgba(0, 0, 0, 0.0);
+    transition: background-color 0.5s;
+    margin-bottom: -10px; /* Adjust this value to control the height reduction */
+}
+
+/* -----------------------------------------------------
+ * Module Base Styles
+ * ----------------------------------------------------- */
+
+/* These selectors will apply to ALL modules listed */
+#clock,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#custom-appmenu,
+#window,
+#workspaces,
+#custom-exit
+ {
+    font-size: 16px;
+    border-radius: 15px;
+    padding: 3px 10px 3px 10px;
+    margin: 10px 15px 5px 0px; /* Changed bottom margin to 5px */
+}
+
+/* Icon styles */
+#custom-exit {
+    color: @icon-light;
+    font-size: 18px;
 }
 
 /* -----------------------------------------------------
  * Workspaces 
  * ----------------------------------------------------- */
 
-
 #workspaces {
-    background: @workspacesbackground1;
+    background: @bg-light;
     margin: 5px 18px 5px 5px;
     padding: 0px 2px;
-    border-radius: 5px 5px 5px 5px;
-    border: 0px;
+    border-radius: 5px;
     font-weight: bold;
-    font-style: normal;
     opacity: 0.8;
-    font-size: 16px;
-    color: @textcolor1;
+    color: @text-light;
 }
 
 #workspaces button {
     padding: 0px 5px;
     margin: 4px 3px;
     border-radius: 15px;
-    border: 0px;
-    color: @textcolor3;
+    color: @text-light;
     transition: all 0.3s ease-in-out;
 }
 
-#workspaces button.active {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 15px;
-    min-width: 40px;
-    transition: all 0.3s ease-in-out;
-}
-
+#workspaces button.active,
 #workspaces button:hover {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 15px;
+    background: @bg-dark;
+    min-width: 40px;
 }
-
 
 /* -----------------------------------------------------
  * Window
  * ----------------------------------------------------- */
 
 #window {
-    background: @backgroundlight;
-    margin: 10px 15px 10px 0px;
-    padding: 2px 10px 0px 10px;
+    background: @bg-light;
+    margin: 10px 15px 5px 0px; /* Changed bottom margin to 5px */
     border-radius: 12px;
-    color:@textcolor2;
-    font-size:16px;
-    font-weight:normal;
+    color: @text-light;
+    font-weight: normal;
 }
 
 window#waybar.empty #window {
-    background-color:transparent;
+    background-color: transparent;
 }
 
 /* -----------------------------------------------------
  * Custom Quicklinks
  * ----------------------------------------------------- */
 
- 
-#custom-hyprshade {
-    margin-right:16px;
-}
-
+#custom-hyprshade,
 #custom-hypridle {
-    margin-right:16px;
+    margin-right: 16px;
 }
 
 #custom-hypridle.active {
-    color: @iconcolor;
+    color: @icon-light;
 }
 
 #custom-hypridle.notactive {
@@ -126,10 +132,7 @@ window#waybar.empty #window {
 
 #custom-ml4w-welcome {
     margin-right: 12px;
-    background-image: url("../assets/ml4w-icon.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
+    background: url("../assets/ml4w-icon.svg") center/20px 20px no-repeat;
     padding-right: 24px;
 }
 
@@ -138,144 +141,69 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #custom-appmenu {
-    background-color: @backgrounddark;
-    font-size: 16px;
-    color: @textcolor1;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 10px;
+    background-color: @bg-dark;
+    color: @text-light;
+    margin: 10px 15px 5px 10px; /* Changed bottom margin to 5px */
 }
 
 /* -----------------------------------------------------
- * Custom Exit
+ * Modules (Clock, Backlight, Pulseaudio, Network, etc.)
  * ----------------------------------------------------- */
+
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery {
+    background-color: @bg-light;
+    color: @text-light;
+}
+
+#clock {
+    background-color: @bg-dark;
+    margin-right: 10;
+}
 
 #custom-exit {
     margin: 0px 16px 0px 0px;
-    padding:0px;
-    font-size:18px;
-    color: @iconcolor;
-}
-
-/* -----------------------------------------------------
- * Clock
- * ----------------------------------------------------- */
-
-#clock {
-    background-color: @backgrounddark;
-    font-size: 16px;
-    color: @textcolor1;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
-}
-
-/* -----------------------------------------------------
- * Backlight
- * ----------------------------------------------------- */
-
- #backlight {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
-}
-
-/* -----------------------------------------------------
- * Pulseaudio
- * ----------------------------------------------------- */
-
-#pulseaudio {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+    padding: 0;
 }
 
 #pulseaudio.muted {
-    background-color: @backgrounddark;
-    color: @textcolor1;
+    background-color: @bg-dark;
 }
 
-/* -----------------------------------------------------
- * Network
- * ----------------------------------------------------- */
-
-#network {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
-}
-
-#network.ethernet {
-    background-color: @backgroundlight;
-    color: @textcolor2;
-}
-
+#network.ethernet,
 #network.wifi {
-    background-color: @backgroundlight;
-    color: @textcolor2;
+    /* Inherits from #network */
 }
 
-/* -----------------------------------------------------
- * Bluetooth
- * ----------------------------------------------------- */
-
- #bluetooth, #bluetooth.on, #bluetooth.connected {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 15px;
-    padding: 2px 10px 0px 10px;
-    margin: 10px 15px 10px 0px;
+#bluetooth,
+#bluetooth.on,
+#bluetooth.connected {
+    /* Inherits from #bluetooth */
 }
 
 #bluetooth.off {
     background-color: transparent;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
-/* -----------------------------------------------------
- * Battery
- * ----------------------------------------------------- */
-
-#battery {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 15px;
-    padding: 2px 15px 0px 10px;
-    margin: 10px 15px 10px 0px;
-}
-
-#battery.charging, #battery.plugged {
-    color: @textcolor2;
-    background-color: @backgroundlight;
-}
-
-@keyframes blink {
-    to {
-        background-color: @backgroundlight;
-        color: @textcolor2;
-    }
+#battery.charging,
+#battery.plugged {
+    /* Inherits from #battery */
 }
 
 #battery.critical:not(.charging) {
     background-color: #f53c3c;
-    color: @textcolor3;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: @bg-light;
+    }
 }
 
 /* -----------------------------------------------------
@@ -286,15 +214,6 @@ label:focus {
     background-color: #000000;
 }
 
-#backlight {
-    background-color: #90b1b1;
-}
-
-#network {
-    background-color: #2980b9;
-}
-
 #network.disconnected {
     background-color: #f53c3c;
 }
-
