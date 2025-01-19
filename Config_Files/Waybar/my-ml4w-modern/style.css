@@ -53,20 +53,20 @@ window#waybar {
 #workspaces button {
     padding: 0px 6px;
     margin: 3px 2px;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 6px 6px 6px 6px;
     border: 0px;
     color: @textcolor1;
     background-color: @workspacesbackground2;
-    transition: all 0.1s linear;
+    transition: all 0.3s linear;
     opacity: 0.4;
 }
 
 #workspaces button.active {
     color: @textcolor1;
     background: @workspacesbackground2;
-    border-radius: 3px 3px 3px 3px;
+    border-radius: 6px 6px 6px 6px;
     min-width: 30px;
-    transition: all 0.1s linear;
+    transition: all 0.3s linear;
     opacity:1.0;
 }
 
@@ -331,7 +331,7 @@ window#waybar.empty #window {
     background-color: @backgrounddark;
     font-size: 16px;
     color: @textcolor1;
-    border-radius: 3px 5px 3px 5px;
+    border-radius: 3px 12px 3px 12px;
     padding: 1px 10px 0px 10px;
     margin: 3px 0px 3px 0px;
     opacity:0.8;
