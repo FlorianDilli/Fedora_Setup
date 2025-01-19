@@ -20,7 +20,7 @@
     // Load Modules
     "include": [
         "~/.config/ml4w/settings/waybar-quicklinks.json",
-        "~/.config/waybar/modules.json"
+        "/home/florian/.config/waybar/themes/my-ml4w-modern/modules.json"
     ],
 
     // Modules Left
