@@ -211,6 +211,14 @@
     "timezone": "",
     "tooltip": false
   },
+  
+    // Clock
+  "custom/clock": {
+    "format": "{:%H:%M %a}",
+    "on-click": "ags toggle calendar",
+    "timezone": "",
+    "tooltip": false
+  },
 
   // System
   "custom/system": {
@@ -361,6 +369,19 @@
     "interval": 60,
     "icon": false
   },
+  
+  //  -------------------------------------------
+    "custom/icon-left": {
+    "exec": "echo '✦'",
+    "interval": 0
+  },
+  
+      "custom/icon-right": {
+    "exec": "echo '✦'",
+    "interval": 0
+  },
+  
+  //--------------------------------------
 
   // backlight:
   "backlight": {

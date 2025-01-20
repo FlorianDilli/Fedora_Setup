@@ -31,14 +31,20 @@
     ],
 
     // Modules Center
-   /* "modules-center": [
-        "hyprland/window",
-        "custom/empty"
+   /*"modules-center": [
+        "custom/icon-left",
+        "custom/clock",
+        "custom/icon-right"
+        //"hyprland/window",
+        //"custom/empty"
     ],*/
 
     // Modules Right    
     "modules-right": [
         //"custom/updates",
+        "custom/exit",
+        "custom/hyprshade",
+        "custom/ml4w-welcome",
         "pulseaudio",
         //"backlight",
         "bluetooth",
@@ -46,10 +52,7 @@
         "network",
         //"group/hardware",
         //"group/tools",
-        //"tray",
-        "custom/hyprshade",
-        "custom/exit",
-        "custom/ml4w-welcome",
+        "tray",
         "clock"
     ]
 }
