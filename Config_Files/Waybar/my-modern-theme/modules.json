@@ -175,6 +175,14 @@
     "on-click": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
   },
+  
+    // Hyprshade2
+  "custom/hub": {
+    "format": "Hub",
+    "tooltip-format": "Open Hub",
+    "on-click": "kitty --hold --directory=$HOME/Fedora_Setup --title 'Hub' -e $HOME/Fedora_Setup/hub.sh",
+    "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
+  },
 
   // Hypridle inhibitor
   "custom/hypridle": {

@@ -44,6 +44,7 @@
         //"custom/updates",
         "custom/exit",
         "custom/hyprshade",
+        "custom/hub",
         "custom/ml4w-welcome",
         "pulseaudio",
         //"backlight",
