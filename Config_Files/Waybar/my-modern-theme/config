@@ -20,7 +20,7 @@
     // Load Modules
     "include": [
         "~/.config/ml4w/settings/waybar-quicklinks.json",
-        "/home/florian/.config/waybar/themes/my-ml4w-modern/modules.json"
+        "/home/florian/.config/waybar/themes/my-modern-theme/modules.json"
     ],
 
     // Modules Left
@@ -43,9 +43,9 @@
     "modules-right": [
         //"custom/updates",
         "custom/exit",
+        "custom/ml4w-welcome",
         "custom/hyprshade",
         "custom/hub",
-        "custom/ml4w-welcome",
         "pulseaudio",
         //"backlight",
         "bluetooth",

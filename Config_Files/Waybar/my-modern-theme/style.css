@@ -165,6 +165,7 @@ window#waybar.empty #window {
 #custom-wallpaper, 
 #custom-system,
 #custom-hyprshade,
+#custom-ml4w-welcome,
 #custom-hub,
 #custom-hypridle,
 #custom-tools,
@@ -210,15 +211,15 @@ window#waybar.empty #window {
 #custom-hypridle.notactive {
     color: #dc2f2f;
 }
-
+/*
 #custom-ml4w-welcome {
     margin-right: 12px;
-    background-image: url("../assets/ml4w-icon.svg");
+    background-image: url("../assets/ml4w-icon-black.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain; 
     padding-right: 20px;
-}
+}*/
 
 #custom-chatgpt {
     margin-right: 16px;

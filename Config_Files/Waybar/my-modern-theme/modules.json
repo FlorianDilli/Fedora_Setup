@@ -57,7 +57,7 @@
   "custom/ml4w-welcome": {
     "on-click": "sleep 0.1 && ~/.config/ml4w/settings/ml4w-sidebar.sh",
     "on-click-right": "sleep 0.1 && com.ml4w.welcome",
-    "format": " ",
+    "format": "\uf0c9",
     "tooltip-format": "Open Sidebar"
   },
 
@@ -165,20 +165,20 @@
     "format": "",
     "on-click": "~/.config/ml4w/scripts/wlogout.sh",
     "on-click-right": "hyprlock",
-    "tooltip-format": "Left: Power menu\nRight: Lock screen"
+    "tooltip-format": "Manage logging out"
   },
 
   // Hyprshade
   "custom/hyprshade": {
-    "format": "",
+    "format": "\uf0eb",
     "tooltip-format": "Toggle Screen Shader",
     "on-click": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
   },
   
-    // Hyprshade2
+    // Hub
   "custom/hub": {
-    "format": "Hub",
+    "format": "\uf015",
     "tooltip-format": "Open Hub",
     "on-click": "kitty --hold --directory=$HOME/Fedora_Setup --title 'Hub' -e $HOME/Fedora_Setup/hub.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
