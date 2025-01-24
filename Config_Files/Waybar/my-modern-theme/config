@@ -22,37 +22,35 @@
         "~/.config/ml4w/settings/waybar-quicklinks.json",
         "/home/florian/.config/waybar/themes/my-modern-theme/modules.json"
     ],
-
-    // Modules Left
+    
+    
+// --------------------------------------------------------
+// -------------------- Modules Left ----------------------
+// --------------------------------------------------------
     "modules-left": [
-        //"custom/appmenu",
         "hyprland/workspaces",
         "hyprland/window"
     ],
 
-    // Modules Center
+// --------------------------------------------------------
+// -------------------- Modules Center --------------------
+// --------------------------------------------------------
    /*"modules-center": [
-        "custom/icon-left",
-        "custom/clock",
-        "custom/icon-right"
         //"hyprland/window",
-        //"custom/empty"
     ],*/
 
-    // Modules Right    
+// --------------------------------------------------------
+// -------------------- Modules Right ---------------------
+// -------------------------------------------------------- 
     "modules-right": [
-        //"custom/updates",
         "custom/exit",
         "custom/ml4w-welcome",
         "custom/hyprshade",
         "custom/hub",
         "pulseaudio",
-        //"backlight",
         "bluetooth",
         "battery", 
         "network",
-        //"group/hardware",
-        //"group/tools",
         "tray",
         "clock"
     ]
