@@ -6,7 +6,7 @@ cd ~/Fedora_Setup || exit
 # Add any new or modified files to the staging area
 git add .
 
-# Check if there are any changes to commit
+# Check if there are any changes to commit 
 if ! git diff-index --quiet HEAD --; then
     # Prompt for a commit message
     read -p "Enter your commit message: " commit_message
