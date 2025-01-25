@@ -2,43 +2,37 @@
 
 # Script for automating ML4W scaling adjustments and Rofi theme configuration
 
-# ------------------------------------------------------------------
-# --- Step 1: Adjust ML4W Scaling ---
-# ------------------------------------------------------------------
-CUSTOM_CONF="$HOME/.config/hypr/conf/custom.conf"
-SCALING_LINE="monitor=,preferred,auto,1.666667"
 
-# Ensure the configuration directory exists
-mkdir -p "$(dirname "$CUSTOM_CONF")"
 
-# Append scaling configuration if not already present
-if ! grep -q "^${SCALING_LINE}$" "$CUSTOM_CONF"; then
-    # Check if the file is not empty
-    if [ -s "$CUSTOM_CONF" ]; then
-        echo "" >> "$CUSTOM_CONF"  # Add a new line before appending
-    fi
-    echo "$SCALING_LINE" >> "$CUSTOM_CONF"
-fi
+
+# ------------------------------------------------------------------
+# --- Step 1: place my custom.conf file ---
+# ------------------------------------------------------------------
+# remove custom.conf file
+rm /home/florian/.config/hypr/conf/custom.conf
+
+# replace it with a symlink to my own custom.conf
+ln -s /home/florian/Fedora_Setup/Config_Files/Hyprland/custom.conf /home/florian/.config/hypr/conf/custom.conf
+
+
 
 # ------------------------------------------------------------------
 # --- Step 2: Set my Rofi Theme ---
 # ------------------------------------------------------------------
-ROFI_THEME_DIR="$HOME/Fedora_Setup/Config_Files/Rofi"
-ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
+# remove config.rasi file
+rm /home/florian/.config/rofi/config.rasi
 
-# Create or overwrite the Rofi configuration file
-cat > "$ROFI_CONFIG" <<EOL
-@theme "$ROFI_THEME_DIR/my_rofi_theme.rasi"
-configuration {
-    show-icons: true;
-    display-drun: "";
-}
-EOL
+# replace it with a symlink to my own config.rasi
+ln -s /home/florian/Fedora_Setup/Config_Files/Rofi/config.rasi /home/florian/.config/rofi/config.rasi
+
 
 
 # ------------------------------------------------------------------
 # --- Step 3: Insert my own Waybar Theme ---
 # ------------------------------------------------------------------
 
+# remove folder first
+rm -rf /home/florian/.config/waybar/themes/my-modern-theme
+
 # create symbolic link from my folder to the waybar themes folder 
-ln -s ~/Fedora_Setup/Config_Files/Waybar/my_starter ~/.config/waybar/themes/my_starter
+ln -s /home/florian/Fedora_Setup/Config_Files/Waybar/my-modern-theme /home/florian/.config/waybar/themes/my-modern-theme

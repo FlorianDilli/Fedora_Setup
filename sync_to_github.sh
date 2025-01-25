@@ -3,24 +3,6 @@
 # Navigate to your local repository
 cd ~/Fedora_Setup || exit
 
-# -----------------------------------------------
-# --- Copy the Waybar theme folder ---
-# -----------------------------------------------
-
-SOURCE_FOLDER="/home/florian/.config/waybar/themes/my-modern-theme"
-DESTINATION_FOLDER="/home/florian/Fedora_Setup/Config_Files/Waybar"
-
-# Remove the existing Waybar folder if it exists
-rm -rf "$DESTINATION_FOLDER"
-
-# Create the destination directory (if it doesn't exist)
-mkdir -p "$DESTINATION_FOLDER"
-
-# Copy the Waybar theme folder recursively
-cp -r "$SOURCE_FOLDER" "$DESTINATION_FOLDER"
-
-# --- End of Waybar theme copying ---
-
 # Add any new or modified files to the staging area
 git add .
 

@@ -1,0 +1,5 @@
+@theme "/home/florian/Fedora_Setup/Config_Files/Rofi/my_rofi_theme.rasi"
+configuration {
+    show-icons: true;
+    display-drun: "";
+}
