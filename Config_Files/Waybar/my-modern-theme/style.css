@@ -105,8 +105,16 @@ window#waybar.empty #window {
     font-weight: bold;
     opacity: 0.8;
     color: @iconcolor;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Hover effect for the hub */
+#custom-hyprshade:hover,
+#custom-ml4w-welcome:hover,
+#custom-hub:hover {
+    color: @color12;
+    transition: background-color 0.3s, color 0.3s; 
+}
 
 /* -----------------------------------------------------
  * Custom Exit
@@ -118,6 +126,12 @@ window#waybar.empty #window {
     font-size:20px;
     color: @iconcolor;
     opacity: 0.8;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#custom-exit:hover {
+    color: @color12;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 
@@ -129,12 +143,20 @@ window#waybar.empty #window {
     background-color: @backgrounddark;
     font-size: 16px;
     color: @textcolor1;
-    border-radius: 8px 8px 8px 8px;
+    border-radius: 8px;
     padding: 1px 10px 0px 10px;
     margin: 3px 0px 3px 0px;
-    opacity:0.8;
-    border:3px solid @bordercolor;   
+    opacity: 0.8;
+    border: 3px solid @bordercolor;  
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Combine transitions */
 }
+
+#clock:hover {
+    background-color: @color12;
+    border: 3px solid @textcolor1;  
+    /* No need to redefine transition here */
+}
+
 
 
 
@@ -150,11 +172,17 @@ window#waybar.empty #window {
     padding: 2px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
     opacity:0.8;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #pulseaudio.muted {
     background-color: @backgrounddark;
     color: @textcolor1;
+}
+
+#pulseaudio:hover {
+    background-color: @color12;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 /* -----------------------------------------------------
@@ -169,6 +197,7 @@ window#waybar.empty #window {
     padding: 2px 10px 0px 10px;
     margin: 3px 15px 3px 0px;
     opacity:0.8;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 #network.ethernet {
@@ -179,6 +208,11 @@ window#waybar.empty #window {
 #network.wifi {
     background-color: @backgroundlight;
     color: @textcolor2;
+}
+
+#network:hover {
+    background-color: @color12;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 /* -----------------------------------------------------
@@ -213,6 +247,7 @@ window#waybar.empty #window {
     padding: 2px 15px 0px 10px;
     margin: 3px 15px 3px 0px;
     opacity:0.8;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #battery.charging, #battery.plugged {
@@ -235,6 +270,11 @@ window#waybar.empty #window {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+#battery:hover {
+    background-color: @color12;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 /* -----------------------------------------------------
