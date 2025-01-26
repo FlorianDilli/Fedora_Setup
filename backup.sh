@@ -50,11 +50,11 @@ check_dir "$FEDORA_BACKUP_DIR" || exit 1
 do_backup "$FEDORA_SETUP_DIR" "$FEDORA_BACKUP_DIR" "Fedora Setup" --exclude '.*'
 
 # Backup: Obsidian
-OBSIDIAN_DIR="/home/florian/Dokumente/Obsidian"
+OBSIDIAN_DIR="/home/florian/Obsidian"
 check_dir "$OBSIDIAN_BACKUP_DIR" || exit 1
 do_backup "$OBSIDIAN_DIR" "$OBSIDIAN_BACKUP_DIR" "Obsidian"
 
-# Backup: Filen to External SSD
+# Backup: Filen to External SSD 
 # Backup: Filen to External SSD
 #EXTERNAL_BACKUP_DIR="/run/media/florian/FloriansSSD/Dokumente/Filen_Backup"
 #check_dir "$EXTERNAL_BACKUP_DIR" || exit 1
