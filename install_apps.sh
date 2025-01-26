@@ -25,7 +25,9 @@ apps=(
     "com.github.jeromerobert.pdfarranger:PDF Arranger"
     "md.obsidian.Obsidian:Obsidian"
     "org.onlyoffice.desktopeditors:OnlyOffice"
-    "Filen:Filen Desktop" # Add Filen to the list
+    "Filen:Filen Desktop"
+    "org.mozilla.Thunderbird"
+
 )
 
 echo "Select applications to install:"

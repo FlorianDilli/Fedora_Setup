@@ -28,13 +28,9 @@
 
   // Hyprland Window
   "hyprland/window": {
-    "rewrite": {
-      "(.*) - Brave": "$1",
-      "(.*) - Chromium": "$1",
-      "(.*) - Brave Search": "$1",
-      "(.*) - Outlook": "$1",
-      "(.*) Microsoft Teams": "$1"
-    },
+    "format": "",
+    "icon": true,
+    "icon-size": 28,
     "separate-outputs": true
   },
 
@@ -122,7 +118,7 @@
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     "format-muted": " {format_source}",
-    "format-source": "{volume}% ",
+    "format-source": "{volume}%",
     "format-source-muted": "",
     "format-icons": {
       "headphone": " ",
@@ -131,7 +127,7 @@
       "phone": " ",
       "portable": " ",
       "car": " ",
-      "default": ["", "", ""]
+      "default": ["\uf026", "\uf027", "\uf028"]
     },
     "on-click": "pavucontrol"
   },
