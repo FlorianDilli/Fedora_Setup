@@ -30,7 +30,7 @@
   "hyprland/window": {
     "format": "",
     "icon": true,
-    "icon-size": 28,
+    "icon-size": 20,
     "separate-outputs": true
   },
 
