@@ -79,7 +79,7 @@ window#waybar {
 
 #window {
     margin: 3px 0px 4px 0px;
-    padding: 2px;
+    padding: 3px;
     background-color: @iconcolor;
     opacity: 0.7;
     border-radius: 8px; 
