@@ -47,6 +47,7 @@
         "custom/ml4w-welcome",
         "custom/hyprshade",
         "custom/hub",
+        "custom/notification",
         "pulseaudio",
         "bluetooth",
         "battery",
