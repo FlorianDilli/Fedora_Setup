@@ -12,7 +12,7 @@
   "hyprland/workspaces": {
       "format": "{icon}",
       "format-icons": {
-          "active": "\uf111",
+          "active": "\uf004",
           "default": "\uf111",
           "empty": "\uf111"
       },

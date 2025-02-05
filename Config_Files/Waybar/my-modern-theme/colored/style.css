@@ -5,7 +5,7 @@
 
 @define-color boxbackground @color10;
 @define-color iconcolor @color10;
-@define-color textcolor #FFFFFF;
+@define-color textcolor @color15;
 
 @define-color clockbackground @color9; /*war color9*/ 
 @define-color clockborder @color10;

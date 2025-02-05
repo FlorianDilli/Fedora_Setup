@@ -34,5 +34,6 @@ ln -s /home/florian/Fedora_Setup/Config_Files/Rofi/config.rasi /home/florian/.co
 # remove folder first
 rm -rf /home/florian/.config/waybar/themes/my-modern-theme
 
-# create symbolic link from my folder to the waybar themes folder 
-ln -s /home/florian/Fedora_Setup/Config_Files/Waybar/my-modern-theme /home/florian/.config/waybar/themes/my-modern-theme
+# copy my theme from my folder to the waybar themes folder 
+cp -r /home/florian/Fedora_Setup/Config_Files/Waybar/my-modern-theme /home/florian/.config/waybar/themes/
+

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Copy Waybar Themes to my Folder
+rm -rf /home/florian/Fedora_Setup/Config_Files/Waybar/*
+cp -r /home/florian/.config/waybar/themes/my-modern-theme /home/florian/Fedora_Setup/Config_Files/Waybar/
+
+
 # Navigate to your local repository
 cd ~/Fedora_Setup || exit
 
