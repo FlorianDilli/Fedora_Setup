@@ -1,13 +1,16 @@
 /* -----------------------------------------------------
  * Import Pywal colors 
  * ----------------------------------------------------- */
+ 
 @import '../../../../../.cache/wal/colors-waybar.css';
 
+
+/* -------- Standard Theme -----------------*/
 @define-color boxbackground @color10;
 @define-color iconcolor @color10;
 @define-color textcolor @color15;
 
-@define-color clockbackground @color9; /*war color9*/ 
+@define-color clockbackground @color9;
 @define-color clockborder @color10;
 @define-color clocktext @color3;
 
@@ -16,5 +19,20 @@
 @define-color workspaceshover @color12;
 @define-color workspacesactive @color15;
 
+
+/*
+@define-color boxbackground black;
+@define-color iconcolor black;
+@define-color textcolor @color15;
+
+@define-color clockbackground black;
+@define-color clockborder @color10;
+@define-color clocktext @color3;
+
+@define-color workspacesbackground black;
+@define-color workspacesbutton @color9;
+@define-color workspaceshover @color12;
+@define-color workspacesactive @color15;
+*/
 @import '../style.css';
 

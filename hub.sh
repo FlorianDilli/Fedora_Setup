@@ -18,7 +18,7 @@ fi
 # Menu structure with nested options
 declare -A MENUS
 MENUS=(
-    ["main"]="System update|Backup|Sync Fedora_Setup to GitHub|Switch Color-Scheme|Other Scripts|Exit"
+    ["main"]="System update|Backup|Sync Fedora_Setup to GitHub|Switch Color-Scheme|Show Pywal Colors|Other Scripts|Exit"
     ["Other Scripts"]="Post-Update Configuration|Post-Install Configuration|Install my Apps|Back"
 )
 
@@ -31,6 +31,7 @@ COMMANDS=(
     ["Post-Install Configuration"]="./ml4w_post_install.sh"
     ["Post-Update Configuration"]="./ml4w_post_update.sh"
     ["Switch Color-Scheme"]="./light-dark-mode.sh"
+    ["Show Pywal Colors"]="./show-colors.sh"
 )
 
 # Header
