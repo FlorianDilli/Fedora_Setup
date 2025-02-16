@@ -40,20 +40,45 @@ window#waybar {
     /*border: 3px solid @workspacesbutton; */
     /*box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2);*/
 }
+/* Base style for workspace buttons */
 #workspaces button {
-    all:unset;
+    all: unset;
     font-weight: 600;
     padding: 0px 5px;
-    color: @workspacesbutton; 
-    transition: all .5s ease;
+    color: @workspacesbutton;
+    opacity: 0.7;
+    /* Transition properties allowed by Waybar */
+    transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.5s ease;
 }
+
+/* Enhance the hover state */
 #workspaces button:hover {
-    color: alpha(@workspaceshover,0.5);
-    transition: all .5s ease;
+    color: alpha(@workspaceshover, 0.5);
 }
+
+/* Active workspace button – it remains fully opaque during the animation */
 #workspaces button.active {
     color: @workspacesactive;
+    opacity: 1;
+    animation: pulse-shadow 0.8s ease-out;
 }
+
+/* Adjusted keyframes for a smooth pulse without opacity changes */
+@keyframes pulse-shadow {
+    0% {
+        text-shadow: none;
+        opacity: 1;
+    }
+    50% {
+        text-shadow: 0 0 8px @workspacesactive;
+        opacity: 1;
+    }
+    100% {
+        text-shadow: none;
+        opacity: 1;
+    }
+}
+
 
 /* -----------------------------------------------------
  * Window
