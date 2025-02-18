@@ -43,16 +43,12 @@
 // -------------------- Modules Right ---------------------
 // -------------------------------------------------------- 
     "modules-right": [
-        "custom/exit",
-        "custom/ml4w-welcome",
-        "custom/hyprshade",
-        "custom/hub",
-        "custom/notification",
+        "group/buttons",
+        "tray",
         "pulseaudio",
         "bluetooth",
         "battery",
         "network",
-        "tray",
         "clock"
     ]
 }

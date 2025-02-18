@@ -28,6 +28,23 @@
     "icon-size": 21,
     "separate-outputs": true
   },
+  
+    // Group Buttons
+  "group/buttons": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/hub",
+      "custom/exit",
+      "custom/notification",
+      "custom/hyprshade",
+      "custom/ml4w-welcome"
+    ]
+  },
 
   // ML4W Welcome App
   "custom/ml4w-welcome": {
