@@ -35,28 +35,24 @@ window#waybar {
     border-radius: 8px;
     opacity:0.8;
     padding: 0px 8px;
-    /*margin: 3px 0px;*/
+
     margin: 3px 0px 3px 10px;
-    /*border: 3px solid @workspacesbutton; */
-    /*box-shadow: 0 0px 4px rgba(0, 0, 0, 0.2);*/
 }
-/* Base style for workspace buttons */
+
 #workspaces button {
     all: unset;
     font-weight: 600;
     padding: 0px 5px;
     color: @workspacesbutton;
     opacity: 0.7;
-    /* Transition properties allowed by Waybar */
     transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.5s ease;
 }
 
-/* Enhance the hover state */
+
 #workspaces button:hover {
     color: alpha(@workspaceshover, 0.5);
 }
 
-/* Active workspace button – it remains fully opaque during the animation */
 #workspaces button.active {
     color: @workspacesactive;
     opacity: 1;
@@ -83,12 +79,10 @@ window#waybar {
 /* -----------------------------------------------------
  * Window
  * ----------------------------------------------------- */
-
 #window {
     margin: 3px 10px;
     padding: 3px;
     border-radius: 8px;
-    /* Using only properties that Waybar's CSS parser accepts */
     transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
     min-width: 20px;
     opacity: 1;
@@ -98,17 +92,11 @@ window#waybar.empty #window {
     background-color: transparent;
     border: none;
     opacity: 0;
-    /* Removed transform since Waybar does not support it */
 }
 
 window#waybar.empty #window label {
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
-}
-
-/* Optional hover effect to enhance interactivity */
-#window:hover {
-    background-color: rgba(255, 255, 255, 0.1);
 }
 
 
@@ -117,21 +105,20 @@ window#waybar.empty #window label {
 /* -----------------------------------------------------
  * Custom Quicklinks
  * ----------------------------------------------------- */
-
 #custom-hyprshade,
 #custom-notification,
 #custom-ml4w-welcome,
 #custom-exit,
 #custom-hub {
     margin-right: 16px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     opacity: 0.8;
     color: @textcolor;
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Hover effect for the hub */
+
 #custom-hyprshade:hover,
 #custom-ml4w-welcome:hover,
 #custom-notification:hover,
@@ -145,7 +132,6 @@ window#waybar.empty #window label {
 /* -----------------------------------------------------
  * Clock
  * ----------------------------------------------------- */
-
 #clock {
     background-color: @clockbackground;
     font-size: 16px;
@@ -168,12 +154,14 @@ window#waybar.empty #window label {
 
 
 
-
 /* -----------------------------------------------------
- * Pulseaudio
+ * Boxen
  * ----------------------------------------------------- */
 
-#pulseaudio {
+#pulseaudio,
+#network,
+#bluetooth, #bluetooth.on, #bluetooth.connected,
+#battery {
     background-color: @boxbackground;
     font-size: 16px;
     color: @textcolor;
@@ -184,31 +172,20 @@ window#waybar.empty #window label {
     transition: background-color 0.3s, color 0.3s;
 }
 
+
+/* -----------------------------------------------------
+ * Pulseaudio
+ * ----------------------------------------------------- */
 #pulseaudio.muted {
     background-color: @clockbackground;
     color: @textcolor;
 }
 
-#pulseaudio:hover {
-    background-color: @color12;
-    transition: background-color 0.3s, color 0.3s; 
-}
+
 
 /* -----------------------------------------------------
  * Network
  * ----------------------------------------------------- */
-
-#network {
-    background-color: @boxbackground;
-    font-size: 16px;
-    color: @textcolor;
-    border-radius: 8px;
-    padding: 2px 10px 0px 10px;
-    margin: 3px 15px 3px 0px;
-    opacity:0.8;
-    transition: background-color 0.3s, color 0.3s; 
-}
-
 #network.ethernet {
     background-color: @boxbackground;
     color: @textcolor;
@@ -219,24 +196,10 @@ window#waybar.empty #window label {
     color: @textcolor;
 }
 
-#network:hover {
-    background-color: @color12;
-    transition: background-color 0.3s, color 0.3s; 
-}
 
 /* -----------------------------------------------------
  * Bluetooth
  * ----------------------------------------------------- */
-
-#bluetooth, #bluetooth.on, #bluetooth.connected {
-    background-color: @boxbackground;
-    font-size: 16px;
-    color: @textcolor;
-    border-radius: 5px 5px 5px 5px;
-    padding: 2px 10px 0px 10px;
-    margin: 3px 15px 3px 0px;
-    opacity:0.8;
-}
 
 #bluetooth.off {
     background-color: transparent;
@@ -247,17 +210,6 @@ window#waybar.empty #window label {
 /* -----------------------------------------------------
  * Battery
  * ----------------------------------------------------- */
-
-#battery {
-    background-color: @boxbackground;
-    font-size: 16px;
-    color: @textcolor;
-    border-radius: 8px; /* 8 */
-    padding: 2px 15px 0px 10px;
-    margin: 3px 15px 3px 0px;
-    opacity:0.8;
-    transition: background-color 0.3s, color 0.3s;
-}
 
 #battery.charging, #battery.plugged {
     color: @textcolor;
@@ -281,15 +233,20 @@ window#waybar.empty #window label {
     animation-direction: alternate;
 }
 
-#battery:hover {
+/* -----------------------------------------------------
+ * Box-Hover
+ * ----------------------------------------------------- */
+#pulseaudio:hover,
+#battery:hover,
+#network:hover {
     background-color: @color12;
     transition: background-color 0.3s, color 0.3s; 
 }
 
+
 /* -----------------------------------------------------
  * Tray
  * ----------------------------------------------------- */
-
 #tray {
     padding: 0px 15px 0px 0px;
 }

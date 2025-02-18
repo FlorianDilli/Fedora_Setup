@@ -111,7 +111,8 @@
     "format": "{:%H:%M %a}",
     "on-click": "flatpak run com.ml4w.calendar",
     "timezone": "",
-    "tooltip-format": "{:%d.%m.%Y}",
+    "tooltip-format": "{:%d.%m.
+    %Y}",
   },
 
   // Network
