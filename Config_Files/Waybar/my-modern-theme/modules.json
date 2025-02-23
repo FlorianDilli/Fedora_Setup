@@ -50,13 +50,13 @@
   "custom/ml4w-welcome": {
     "on-click": "flatpak run com.ml4w.sidebar",
     "format": "\uf0c9",
-    "tooltip-format": "Open ML4W Sidebar App"
+    "tooltip-format": "ML4W Sidebar App"
   },
   
 
   // SwayNC
   "custom/notification": {
-    "tooltip-format": "Left: Notifications\nRight: Do not disturb",
+    "tooltip-format": "Notifications",
     "format": "{icon}",
     "format-icons": {
       "notification": "<span foreground='red'><sup></sup></span>",
@@ -81,7 +81,7 @@
     "format": "",
     "on-click": "~/.config/ml4w/scripts/wlogout.sh",
     "on-click-right": "hyprlock",
-    "tooltip-format": "Manage logging out"
+    "tooltip-format": "Loggout options"
   },
 
   // Hyprshade
@@ -95,7 +95,7 @@
     // Hub
   "custom/hub": {
     "format": "\uf015",
-    "tooltip-format": "Open Hub",
+    "tooltip-format": "Hub",
     "on-click": "kitty --hold --directory=$HOME/Fedora_Setup --title 'Hub' -e $HOME/Fedora_Setup/hub.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
   },
@@ -111,8 +111,7 @@
     "format": "{:%H:%M %a}",
     "on-click": "flatpak run com.ml4w.calendar",
     "timezone": "",
-    "tooltip-format": "{:%d.%m.
-    %Y}",
+    "tooltip-format": "{:%d.%m.%Y}",
   },
 
   // Network
@@ -122,7 +121,7 @@
     "format-ethernet": "  {ifname}",
     "format-disconnected": "Disconnected ⚠",
     "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "Name: {essid}\nFreq: {frequency}MHz",
+    "tooltip-format-wifi": "{essid}\n{frequency}MHz",
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
@@ -141,14 +140,12 @@
     "format-charging": "  {capacity}%",
     "format-plugged": "  {capacity}%",
     "format-alt": "{icon}  {time}",
-    // "format-good": "", // An empty format will hide the module
-    // "format-full": "",
+    "tooltip-format": "Battery",
     "format-icons": [" ", " ", " ", " ", " "]
   },
 
   // Pulseaudio
   "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
     "format": "{icon}  {volume}%",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
@@ -164,6 +161,7 @@
       "car": " ",
       "default": ["\uf026", "\uf027", "\uf028"]
     },
+    "tooltip-format": "Audio",
     "on-click": "pavucontrol"
   },
 
