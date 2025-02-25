@@ -124,6 +124,7 @@
     "tooltip-format-wifi": "{essid}\n{frequency}MHz",
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
+    "always-visible": true,
     "max-length": 50,
     // "on-click": "~/.config/ml4w/settings/networkmanager.sh",
     "on-click": "$ROFI \"$HOME/Fedora_Setup/Config_Files/Rofi/wifi.sh\"",

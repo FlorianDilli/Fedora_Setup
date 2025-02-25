@@ -186,15 +186,14 @@ window#waybar.empty #window label {
 /* -----------------------------------------------------
  * Network
  * ----------------------------------------------------- */
-#network.ethernet {
+
+#network.wifi,
+#network.off,
+#network.disconnected {
     background-color: @boxbackground;
     color: @textcolor;
 }
 
-#network.wifi {
-    background-color: @boxbackground;
-    color: @textcolor;
-}
 
 
 /* -----------------------------------------------------
