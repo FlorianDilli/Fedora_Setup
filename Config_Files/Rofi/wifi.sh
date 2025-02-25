@@ -73,7 +73,7 @@ build_wifi_menu() {
     fi
   done <<< "$wifi_list"
   
-  # Order: Connected > Saved > Unsaved
+  # Order: Connected > Saved > Unsaved 
   printf "%b" "${menu_conn}${menu_saved}${menu_unsaved}"
 }
 
