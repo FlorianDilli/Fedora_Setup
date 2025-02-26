@@ -50,13 +50,13 @@
   "custom/ml4w-welcome": {
     "on-click": "flatpak run com.ml4w.sidebar",
     "format": "\uf0c9",
-    "tooltip-format": "ML4W Sidebar App"
+    "tooltip": false
   },
   
 
   // SwayNC
   "custom/notification": {
-    "tooltip-format": "Notifications",
+    "tooltip": false,
     "format": "{icon}",
     "format-icons": {
       "notification": "<span foreground='red'><sup></sup></span>",
@@ -81,13 +81,13 @@
     "format": "",
     "on-click": "~/.config/ml4w/scripts/wlogout.sh",
     "on-click-right": "hyprlock",
-    "tooltip-format": "Loggout options"
+    "tooltip": false
   },
 
   // Hyprshade
   "custom/hyprshade": {
     "format": "\uf0eb",
-    "tooltip-format": "Toggle Screen Shader",
+    "tooltip": false,
     "on-click": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
   },
@@ -95,7 +95,7 @@
     // Hub
   "custom/hub": {
     "format": "\uf015",
-    "tooltip-format": "Hub",
+    "tooltip": false,
     "on-click": "kitty --hold --directory=$HOME/Fedora_Setup --title 'Hub' -e $HOME/Fedora_Setup/hub.sh",
     "on-click-right": "sleep 0.5; ~/.config/hypr/scripts/hyprshade.sh rofi"
   },
@@ -120,10 +120,7 @@
     "format-wifi": "  {signalStrength}%",
     "format-ethernet": "  {ifname}",
     "format-disconnected": "Disconnected ⚠",
-    "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "{essid}\n{frequency}MHz",
-    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
-    "tooltip-format-disconnected": "Disconnected",
+    "tooltip": false,
     "always-visible": true,
     "max-length": 50,
     // "on-click": "~/.config/ml4w/settings/networkmanager.sh",
@@ -141,7 +138,7 @@
     "format": "{icon} {capacity}%",
     "format-charging": "  {capacity}%",
     "format-plugged": "  {capacity}%",
-    "tooltip-format": "Battery",
+    "tooltip": false,
     "format-icons": [" ", " ", " ", " ", " "]
   },
 
@@ -162,7 +159,7 @@
       "car": " ",
       "default": ["\uf026", "\uf027", "\uf028"]
     },
-    "tooltip-format": "Audio",
+    "tooltip": false,
     "on-click": "pavucontrol"
   },
 
@@ -171,6 +168,7 @@
     "format": " {status}",
     "format-disabled": "",
     "format-off": "",
+    "tooltip": false,
     "interval": 30,
     "on-click": "blueman-manager",
     "format-no-controller": ""
