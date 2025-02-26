@@ -154,7 +154,8 @@ while true; do
     security=$(nmcli -t -f SSID,SECURITY device wifi list 2>/dev/null | awk -F: -v ssid="$selected_ssid" '$1==ssid {print $2; exit}')
     if [[ "$security" != "--" && -n "$security" ]]; then
       pass=$(rofi -dmenu -theme-str 'window { location: north east; x-offset: -50; y-offset: 2; width: 350px; } listview { enabled: false; } mode-switcher { enabled: false; } element { enabled: false; }' \
-                -dmenu -mesg "Password for $selected_ssid:" -password)
+		    -mesg "Password for $selected_ssid:" -password -no-show)
+
       [[ -z "$pass" ]] && { notify_msg normal "Cancelled" "No password provided for \"$selected_ssid\"."; exit 0; }
       if nmcli device wifi connect "$selected_ssid" password "$pass"; then
         notify_msg normal "Connected" "You are now connected to \"$selected_ssid\"."
