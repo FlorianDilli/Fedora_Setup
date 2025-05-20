@@ -118,7 +118,7 @@ if ! git diff-index --quiet HEAD --; then
 
     # Corrected GIT_SSH_COMMAND
     # AskPass='' (empty string) tells ssh not to use an askpass program.
-    # Alternatively, AskPass=/dev/null could be used.
+    # Alternatively, AskPass=/dev/null could be used. 
     if GIT_SSH_COMMAND="ssh -o BatchMode=no -o AskPass=''" \
        GIT_TERMINAL_PROMPT=1 \
        git push origin "$default_branch"; then
