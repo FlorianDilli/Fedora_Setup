@@ -4,7 +4,7 @@ clear
 # Source Pywal/Wallust colors
 if [ -f "$HOME/.cache/wallust/shell-colors.sh" ]; then
     . "$HOME/.cache/wallust/shell-colors.sh"
-elif [ -f "$HOME/.cache/wal/colors.sh" ]; then # Fallback for original Pywal
+elif [ -f "$HOME/.cache/wal/colors.sh" ]; then # Fallback for original  Pywal
     . "$HOME/.cache/wal/colors.sh"
 else
     echo "Pywal/Wallust colors not found. Please run 'wal' or 'wallust' to generate a color scheme."
