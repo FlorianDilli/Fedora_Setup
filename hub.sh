@@ -26,7 +26,7 @@ if ! command -v gum &> /dev/null; then
     fi
 fi
 
-# --- Configuration Section: Easy to Add/Remove/Reorder Scripts ---
+# --- Configuration Section: Easy to Add/Remove/Reorder Scripts --- 
 declare -a MENU_DEFINITIONS=(
     "System update|./update_system.sh"
     "Sync with Filen|./backup.sh"
