@@ -37,3 +37,14 @@ rm -rf /home/florian/.config/waybar/themes/my-modern-theme
 # copy my theme from my folder to the waybar themes folder 
 cp -r /home/florian/Fedora_Setup/Config_Files/Waybar/my-modern-theme /home/florian/.config/waybar/themes/
 
+
+# ------------------------------------------------------------------
+# --- Step 4: Insert my own Wallust Config ---
+# ------------------------------------------------------------------
+
+# remove folder first
+rm -rf /home/florian/.config/wallust
+
+# copy my theme from my folder to the waybar themes folder 
+cp -r /home/florian/Fedora_Setup/Config_Files/wallust /home/florian/.config/
+

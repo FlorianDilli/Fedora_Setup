@@ -2,7 +2,9 @@
 /* Based on original work by Newman Sanchez */
 
 /* Import colors from colors-rofi-pywal.rasi */
-@import "/home/florian/.cache/wal/colors-rofi-pywal.rasi"
+/* @import "/home/florian/.cache/wal/colors-rofi-pywal.rasi" */
+
+@import "/home/florian/.cache/wallust/rofi-colors.rasi"
 
 * {
     font:   "Roboto 12";
@@ -18,7 +20,7 @@ window {
     y-offset:       calc(45% - 150px);
     width:          460;
     border-radius:  24px;
-    background-color:   @color0; /* Use Pywal variable */
+    background-color:   @background; /* Use Pywal variable */
 }
 
 mainbox {
