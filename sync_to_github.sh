@@ -25,6 +25,7 @@ check_command() {
 
 # 0. Check for required commands
 check_command "git"
+check_command "ssh-add" # Good to have for SSH agent interaction
 
 # 1. Copy Waybar Theme
 echo "--- Copying Waybar Theme ---"
@@ -59,6 +60,29 @@ if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     exit 1
 fi
 
+# Verify remote 'origin' URL (optional but good for debugging)
+echo "Checking remote 'origin' URL..."
+if git remote -v | grep -q '^origin.*github.com'; then
+    if git remote -v | grep '^origin' | grep -q 'git@github.com'; then
+        echo "Remote 'origin' is an SSH URL. Ensuring SSH agent is effective..."
+        # Check if SSH agent has keys. If not, prompt user.
+        if ssh-add -l &>/dev/null; then
+            echo "SSH agent has keys."
+        else
+            echo "Warning: SSH agent has no keys loaded (ssh-add -l failed or shows no identities)."
+            echo "If your SSH key is passphrase protected, you might be prompted for it."
+            echo "Consider running 'ssh-add ~/.ssh/your_private_key' in your terminal."
+        fi
+    elif git remote -v | grep '^origin' | grep -q 'https://github.com'; then
+        echo "Remote 'origin' is an HTTPS URL. You may be prompted for username/PAT."
+    else
+        echo "Remote 'origin' is a GitHub URL, but type (SSH/HTTPS) is unclear from simple check."
+    fi
+else
+    echo "Warning: Remote 'origin' does not seem to be a standard GitHub URL or is not set."
+fi
+echo
+
 # 3. Check and set Git email
 current_email=$(git config user.email || echo "") # Get local or global, default to empty
 if [[ -z "$current_email" ]]; then
@@ -66,12 +90,12 @@ if [[ -z "$current_email" ]]; then
     read -p "Please enter your email address for Git: " new_email
     git config --global user.email "$new_email" # Set globally if not set at all
     echo "Git email updated to: $new_email"
-elif [[ ! "$current_email" == *"passinbox"* ]]; then
+elif [[ ! "$current_email" == *"passinbox"* ]]; then # Example condition, adjust as needed
     echo "Current Git email: $current_email"
-    read -p "Your Git email does not contain 'passinbox'. Enter new email (or press Enter to keep current): " new_email
+    read -p "Your Git email does not seem to be the preferred one. Enter new email (or press Enter to keep current): " new_email
     if [[ -n "$new_email" ]]; then
-        git config --global user.email "$new_email" # Or use 'git config user.email' for local repo
-        echo "Git email updated to: $new_email"
+        git config user.email "$new_email" # Set for current repo. Use --global for global.
+        echo "Git email updated for this repository to: $new_email"
     else
         echo "Keeping current Git email: $current_email"
     fi
@@ -90,12 +114,8 @@ if ! git diff-index --quiet HEAD --; then
     echo "Committing changes..."
     git commit -m "$commit_message"
 
-    # Determine the default branch (main or master)
-    # default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@' || echo "main")
-    # A more robust way to find the current branch if already on one, or default to main/master
     current_branch_name=$(git rev-parse --abbrev-ref HEAD)
-    if [[ "$current_branch_name" == "HEAD" ]]; then # Detached HEAD state
-        # Try to find a common default branch
+    if [[ "$current_branch_name" == "HEAD" ]]; then
         if git show-ref --verify --quiet refs/heads/main; then
             default_branch="main"
         elif git show-ref --verify --quiet refs/heads/master; then
@@ -109,23 +129,31 @@ if ! git diff-index --quiet HEAD --; then
     fi
     echo "Attempting to push to 'origin $default_branch'..."
 
-    # Attempt to push, forcing terminal prompt if necessary
-    # Unset SSH_ASKPASS to prevent ksshaskpass issues if it's misconfigured
-    # GIT_TERMINAL_PROMPT=1 ensures git tries to prompt on the terminal
-    if GIT_TERMINAL_PROMPT=1 unset SSH_ASKPASS GIT_ASKPASS; git push origin "$default_branch"; then
+    # Key change here: Use GIT_SSH_COMMAND to force ssh to prompt on tty if needed
+    # GIT_TERMINAL_PROMPT=1 is for git's own prompts (e.g. HTTP auth)
+    # unset SSH_ASKPASS GIT_ASKPASS prevents external GUI helpers for ssh/git
+    # ssh -o AskPass= explicitly tells ssh not to use any AskPass program, forcing TTY prompt for passphrases
+    # ssh -o BatchMode=no ensures ssh *can* prompt (default is no for non-interactive)
+    if GIT_SSH_COMMAND="ssh -o BatchMode=no -o AskPass=" \
+       GIT_TERMINAL_PROMPT=1 \
+       git push origin "$default_branch"; then # Note: unset SSH_ASKPASS/GIT_ASKPASS is implicitly handled by GIT_SSH_COMMAND overriding ssh call
         echo "Sync to GitHub complete!"
     else
         echo "Error: Git push failed."
         echo "This might be an authentication issue."
         echo "Suggestions:"
         echo "1. Ensure your remote 'origin' is set correctly ('git remote -v')."
-        echo "2. If using HTTPS, ensure you entered your username/password or Personal Access Token correctly."
-        echo "   Consider setting up a Git credential helper: "
-        echo "   'git config --global credential.helper cache' (caches for 15 mins)"
-        echo "   'git config --global credential.helper store' (stores unencrypted - less secure)"
-        echo "   Or use a system-specific helper like 'libsecret' on Linux."
-        echo "3. (Recommended) Switch to SSH authentication with GitHub for passwordless pushes."
-        echo "   Instructions: https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
+        echo "2. If using SSH (URL like git@github.com:...):"
+        echo "   - Ensure your SSH key is added to your ssh-agent ('ssh-add -l' to list)."
+        echo "   - If prompted for a passphrase, enter it."
+        echo "   - Test with 'ssh -T git@github.com'."
+        echo "   - (Recommended) Check SSH key setup on GitHub: https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
+        echo "3. If using HTTPS (URL like https://github.com/...):"
+        echo "   - Ensure you entered your username/Personal Access Token correctly when prompted."
+        echo "   - Consider setting up a Git credential helper: "
+        echo "     'git config --global credential.helper cache' (caches for 15 mins)"
+        echo "     'git config --global credential.helper store' (stores unencrypted - less secure)"
+        echo "     Or use a system-specific helper like 'libsecret' on Linux."
         exit 1 # Exit with error if push fails
     fi
 else
