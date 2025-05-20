@@ -21,7 +21,7 @@ check_command() {
 
 # 0. Check for required commands
 check_command "git"
-check_command "ssh-add"
+check_command "ssh-add" # Keep this check as ssh-agent is relevant
 
 # 1. Copy Waybar Theme
 echo "--- Copying Waybar Theme ---"
@@ -62,12 +62,26 @@ echo "Remote 'origin' URL: $REMOTE_URL"
 
 if [[ "$REMOTE_URL" == git@* ]]; then
     echo "Remote 'origin' is an SSH URL. Ensuring SSH agent is effective..."
-    if ssh-add -l &>/dev/null; then
+    # Check if ssh-agent has keys.
+    # ssh-add -l returns 0 if agent has keys, 1 if no keys, 2 if agent not available.
+    if ssh-add -l >/dev/null 2>&1; then
         echo "SSH agent has keys."
     else
-        echo "Warning: SSH agent has no keys loaded (ssh-add -l failed or shows no identities)."
-        echo "If your SSH key is passphrase protected, you might be prompted for it."
-        echo "Consider running 'ssh-add ~/.ssh/your_private_key' in your terminal if issues persist."
+        # Capture the exit code of ssh-add -l to provide a more specific message
+        ssh_add_status=0
+        ssh-add -l >/dev/null 2>&1 || ssh_add_status=$? # Check status without printing error
+
+        if [ "$ssh_add_status" -eq 1 ]; then # Agent running, but no identities
+            echo "Warning: SSH agent is running but has no keys loaded."
+            echo "If your SSH key is passphrase protected, you might be prompted for it during the push."
+            echo "Consider running 'ssh-add ~/.ssh/your_private_key' in your terminal if issues persist."
+        elif [ "$ssh_add_status" -eq 2 ]; then # Agent not running or not available
+            echo "Warning: SSH agent does not seem to be running or is not available."
+            echo "If your SSH key is passphrase protected, you will likely be prompted for it."
+            echo "For a smoother experience, ensure ssh-agent is running and your key is added."
+        else # Other error (should not happen if ssh-add command exists)
+            echo "Warning: Could not determine SSH agent status (ssh-add -l exited with $ssh_add_status)."
+        fi
     fi
 elif [[ "$REMOTE_URL" == https://* ]]; then
     echo "Remote 'origin' is an HTTPS URL. You may be prompted for username/PAT."
@@ -83,11 +97,11 @@ if [[ -z "$current_email" ]]; then
     read -p "Please enter your email address for Git: " new_email
     git config --global user.email "$new_email"
     echo "Git email updated to: $new_email"
-elif [[ ! "$current_email" == *"passinbox"* ]]; then
+elif [[ ! "$current_email" == *"passinbox"* ]]; then # Example check, adjust as needed
     echo "Current Git email: $current_email"
     read -p "Your Git email does not seem to be the preferred one. Enter new email (or press Enter to keep current): " new_email
     if [[ -n "$new_email" ]]; then
-        git config user.email "$new_email"
+        git config user.email "$new_email" # Use local config for this repo unless --global is intended
         echo "Git email updated for this repository to: $new_email"
     else
         echo "Keeping current Git email: $current_email"
@@ -107,19 +121,25 @@ if ! git diff-index --quiet HEAD --; then
     git commit -m "$commit_message"
 
     current_branch_name=$(git rev-parse --abbrev-ref HEAD)
-    if [[ "$current_branch_name" == "HEAD" ]]; then
+    if [[ "$current_branch_name" == "HEAD" ]]; then # In detached HEAD state
+        # Try to find a common default branch name
         if git show-ref --verify --quiet refs/heads/main; then default_branch="main";
         elif git show-ref --verify --quiet refs/heads/master; then default_branch="master";
-        else echo "Warning: Could not reliably determine default branch, assuming 'main'."; default_branch="main"; fi
+        else
+            echo "Warning: Could not reliably determine default branch from detached HEAD, assuming 'main'."
+            echo "You might want to create and checkout a branch first: git checkout -b new-branch-name"
+            default_branch="main";
+        fi
     else
         default_branch="$current_branch_name"
     fi
     echo "Attempting to push to 'origin $default_branch'..."
 
-    # Corrected GIT_SSH_COMMAND
-    # AskPass='' (empty string) tells ssh not to use an askpass program.
-    # Alternatively, AskPass=/dev/null could be used. 
-    if GIT_SSH_COMMAND="ssh -o BatchMode=no -o AskPass=''" \
+    # --- MODIFIED SECTION ---
+    # GIT_TERMINAL_PROMPT=1 allows Git to prompt on the terminal.
+    # BatchMode=no in GIT_SSH_COMMAND ensures ssh itself can prompt if needed
+    # and isn't running in a non-interactive batch mode that would suppress prompts.
+    if GIT_SSH_COMMAND="ssh -o BatchMode=no" \
        GIT_TERMINAL_PROMPT=1 \
        git push origin "$default_branch"; then
         echo "Sync to GitHub complete!"
@@ -131,6 +151,7 @@ if ! git diff-index --quiet HEAD --; then
         echo "2. If using SSH:"
         echo "   - Test connection: 'ssh -T git@github.com'. It should succeed."
         echo "   - Ensure your SSH key is added to ssh-agent: 'ssh-add -l' (should list your key)."
+        echo "     If not, run 'ssh-add /path/to/your/private_key' (e.g., ~/.ssh/id_ed25519)."
         echo "   - If prompted for a passphrase, enter it correctly."
         echo "   - (Recommended) Check SSH key setup on GitHub: https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
         echo "3. If you were trying to use HTTPS (URL like https://github.com/...):"
