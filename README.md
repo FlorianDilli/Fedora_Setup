@@ -27,3 +27,4 @@ To install and run this setup, follow these steps:
     ```
 
 **Note:** You might be prompted to enter your password during the setup process, as some commands require root privileges.
+# test
