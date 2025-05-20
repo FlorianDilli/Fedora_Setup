@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Strict mode: exit on error, treat unset variables as an error, and fail pipe if any command fails.
+# Strict mode: exit on error, treat unset variables as an error, and fail pipe if any command fails. 
 set -euo pipefail
 
 # --- Configuration ---
