@@ -2,10 +2,6 @@ backend = "resized"
 threshold = 10
 palette = "dark"
 
-[templates]
-kitty.template = 'kitty-colors.conf'
-kitty.target = '~/.config/kitty/colors-wallust.conf'
-
 [templates.rofi]
 template = 'rofi-colors.rasi'
 target = '/home/florian/.cache/wallust/rofi-colors.rasi'
@@ -17,4 +13,8 @@ target = '/home/florian/.cache/wallust/waybar-colors.css'
 [templates.shell]
 template = 'shell-colors.sh'
 target = '/home/florian/.cache/wallust/shell-colors.sh'
+
+[templates.kitty]
+template = 'kitty-colors.conf'
+target = '/home/florian/.cache/wallust/kitty-colors.conf'
 

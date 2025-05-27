@@ -1,0 +1,3 @@
+Falls Terminal Farben nicht gehen:
+
+in /home/florian/.config/kitty/kitty.conf die importierten matugen und wallust farben ersetzen durch include /home/florian/.cache/wallust/kitty-colors.conf
