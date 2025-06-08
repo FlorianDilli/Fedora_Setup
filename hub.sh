@@ -11,6 +11,12 @@ else
     exit 1
 fi
 
+# Ensure the PATH includes the directory for user-installed binaries like 'rich'.
+# This makes it available to all sub-scripts called from this menu.
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Check if Gum is installed
 if ! command -v gum &> /dev/null; then
     echo "Gum is not installed. Installing Gum..."
@@ -30,9 +36,9 @@ fi
 declare -a MENU_DEFINITIONS=(
     "System update|./update_system.sh"
     "Sync with Filen|./backup.sh"
-    "Sync Fedora_Setup to GitHub|./sync_to_github.sh"
+    "Sync Repositories to GitHub|./sync_to_github.sh"
     "Switch to Dark/Light mode|./light-dark-mode.sh"
-    "Show Wallust colors|./show-colors.sh" # This is the script that was causing issues
+    "Show Wallust colors|./show-colors.sh"
     "Fedora-Setup post-install config|./ml4w_post_install.sh"
     "Install my Apps|./install_apps.sh"
 )
