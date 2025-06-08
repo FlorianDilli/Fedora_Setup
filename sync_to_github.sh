@@ -13,42 +13,42 @@ REPOS_TO_SYNC=(
 )
 
 # --- Helper Functions for Rich Output ---
-# FIX: Piped text to `rich` via `echo` to avoid "file not found" errors.
-# The `rich` command-line tool reads from stdin when text is piped to it.
+# FIX: Explicitly use the '-' argument to tell rich to read from stdin.
+# This is the most reliable way to pipe text to the rich-cli tool.
 
 print_header() {
     # This function was already correct.
-    echo "-- $1 --" | rich --panel rounded --style "bold bright_cyan" --padding 1
+    echo "-- $1 --" | rich --panel rounded --style "bold bright_cyan" --padding 1 -
 }
 
 print_repo_header() {
-    # Corrected: Pipe the formatted string to `rich`.
-    echo "[bold white on blue] Repository: $1 [/]" | rich
+    # Corrected: Pipe the formatted string to `rich` and use '-'
+    echo "[bold white on blue] Repository: $1 [/]" | rich -
 }
 
 print_success() {
-    # Corrected: Pipe the formatted string to `rich`.
-    echo "[bold green]✔[/] $1" | rich
+    # Corrected: Pipe the formatted string to `rich` and use '-'
+    echo "[bold green]✔[/] $1" | rich -
 }
 
 print_error() {
-    # Corrected: Pipe the formatted string to `rich`.
-    echo "[bold red]✖[/] $1" | rich
+    # Corrected: Pipe the formatted string to `rich` and use '-'
+    echo "[bold red]✖[/] $1" | rich -
 }
 
 print_warning() {
-    # Corrected: Pipe the formatted string to `rich`.
-    echo "[bold yellow]![/] $1" | rich
+    # Corrected: Pipe the formatted string to `rich` and use '-'
+    echo "[bold yellow]![/] $1" | rich -
 }
 
 print_info() {
-    # Corrected: Pipe the formatted string to `rich`.
-    echo "[dim]❯[/] [cyan]$1[/]" | rich
+    # Corrected: Pipe the formatted string to `rich` and use '-'
+    echo "[dim]❯[/] [cyan]$1[/]" | rich -
 }
 
 print_separator() {
-    # This command generates content directly and doesn't need input, so it's correct.
-    rich --rule style "dim"
+    # FIX: The style argument needs its own flag (--style).
+    rich --rule --style "dim"
 }
 # --- End of Helper Functions ---
 
@@ -81,24 +81,22 @@ for repo_dir in "${REPOS_TO_SYNC[@]}"; do
         continue
     fi
 
-    # Use a subshell to change directories so we don't affect the main script's CWD
-    (
-        cd "$repo_dir" || { print_warning "Could not navigate to $repo_dir. Skipping."; exit 1; }
+    # FIX: Use pushd/popd to manage directories instead of a subshell.
+    # This ensures that our counters ($synced_count, etc.) are modified
+    # in the main script's scope and are not lost.
+    pushd "$repo_dir" > /dev/null || { print_warning "Could not navigate to $repo_dir. Skipping."; print_separator; continue; }
 
-        if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-            print_warning "$repo_name is not a Git repository. Skipping."
-            exit 0 # Not an error, just skip
-        fi
-        
+    if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+        print_warning "$repo_name is not a Git repository. Skipping."
+    else
         print_info "Checking for local changes..."
 
         if [ -n "$(git status --porcelain)" ]; then
-            # Use a global-scope variable for the counter
             ((repos_with_changes++))
             print_warning "Changes detected in $repo_name."
             
             echo
-            echo "[bold]Staged & Unstaged Changes:[/]" | rich
+            echo "[bold]Staged & Unstaged Changes:[/]" | rich -
             # This pipe is correct: it sends the output of `git status` to rich's stdin.
             git status --short | rich -
             echo
@@ -106,48 +104,42 @@ for repo_dir in "${REPOS_TO_SYNC[@]}"; do
             print_info "Staging all changes..."
             git add .
 
-            # Use Gum for a nicer input prompt if available
-            if command -v gum &> /dev/null; then
-                commit_message=$(gum input --placeholder "Enter commit message for '$repo_name'...")
-            else
-                read -p "  Enter commit message for '$repo_name': " commit_message
-            fi
+            commit_message=$(gum input --header "Enter commit message for '$repo_name'" --placeholder "Your changes...")
 
             if [ -z "$commit_message" ]; then
                 print_warning "Empty commit message. Resetting staged files and skipping repo."
                 git reset > /dev/null
-                exit 0
-            fi
-
-            print_info "Committing with message: '$commit_message'..."
-            git commit -m "$commit_message" > /dev/null
-
-            current_branch=$(git rev-parse --abbrev-ref HEAD)
-            print_info "Attempting to push changes to 'origin/$current_branch'..."
-            
-            # --- ROBUST PUSH LOGIC ---
-            set +e
-            push_output=$(git push origin "$current_branch" 2>&1)
-            push_exit_code=$?
-            set -e
-
-            if [ $push_exit_code -eq 0 ]; then
-                print_success "Successfully synced '$repo_name' to GitHub."
-                # Use a global-scope variable for the counter
-                ((synced_count++))
             else
-                print_error "Git push failed for '$repo_name'."
-                echo
-                echo "$push_output" | rich --panel rounded --border-style "red" --title "Git Push Error Output"
-                print_warning "Please check the output above for errors (e.g., authentication)."
-            fi
-            # --- END OF PUSH LOGIC ---
+                print_info "Committing with message: '$commit_message'..."
+                git commit -m "$commit_message" > /dev/null
 
+                current_branch=$(git rev-parse --abbrev-ref HEAD)
+                print_info "Attempting to push changes to 'origin/$current_branch'..."
+                
+                # --- ROBUST PUSH LOGIC ---
+                set +e
+                push_output=$(git push origin "$current_branch" 2>&1)
+                push_exit_code=$?
+                set -e
+
+                if [ $push_exit_code -eq 0 ]; then
+                    print_success "Successfully synced '$repo_name' to GitHub."
+                    ((synced_count++))
+                else
+                    print_error "Git push failed for '$repo_name'."
+                    echo
+                    echo "$push_output" | rich --panel rounded --border-style "red" --title "Git Push Error Output" -
+                    print_warning "Please check the output above for errors (e.g., authentication)."
+                fi
+                # --- END OF PUSH LOGIC ---
+            fi
         else
             print_success "No local changes to sync."
         fi
-    )
-
+    fi
+    
+    # Return to the original directory
+    popd > /dev/null
     print_separator
 done
 
